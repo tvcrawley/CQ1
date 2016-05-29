@@ -18,7 +18,12 @@
       <input type="radio" ng-model="main.user.mailingList" value="Yes">Yes
       <input type="radio" ng-model="main.user.mailingList" value="No"/>No
       <button type="submit">Submit</button>
+
+      <div ng-if="main.submitted == true">
+        {{main.display}} {{main.user.firstName}}
+      </div>
     </form>
+
   </div>
 </head>
 <body>

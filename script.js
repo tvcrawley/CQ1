@@ -17,10 +17,10 @@
     // vm.user.phoneNumber;
     // vm.user.mailingList;
 
-    vm.submit = function(event){
+    vm.submit = function(){
       vm.users.push(angular.copy(vm.user));
-      console.log(event);
-      // event.preventDefault();
+      vm.submitted = true;
+      vm.display = "Thank you " + vm.user.firstName;
       vm.user = {};
     };
     console.log(vm.users);

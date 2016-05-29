@@ -20,11 +20,13 @@
       <button type="submit">Submit</button>
 
       <div ng-if="main.submitted == true">
-        {{main.display}} {{main.user.firstName}}
+        {{main.display}}
+      </div>
+      <div ng-if="main.submitted == false">
+        {{main.display}}
       </div>
     </form>
-
-  </div>
+</div>
 </head>
 <body>
 

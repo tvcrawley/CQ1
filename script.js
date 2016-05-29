@@ -18,20 +18,26 @@
     // vm.user.phoneNumber;
     // vm.user.mailingList;
 
-    vm.submit = function(){
+    vm.submit = function(event){
       vm.users.push(angular.copy(vm.user));
-      vm.submitted = true;
 
-if(vm.user.mailingList == "Yes"){
-  console.log("cool");
-  vm.mailingListUsers.push(angular.copy(vm.user));
-  console.log(vm.mailingListUsers);
+      if(vm.user.mailingList == "Yes"){
+        console.log("cool");
+        vm.submitted = true;
+        vm.mailingListUsers.push(angular.copy(vm.user));
+        console.log(vm.mailingListUsers);
         vm.display = "Thank you " + vm.user.firstName + ". You have been added to the mailing list!";
-}
-else{
-  console.log("crap");
-        vm.display = "Thank you " + vm.user.firstName + ".";
-}
+      }
+      else if(vm.user.mailingList == "No"){
+        vm.submitted = true;
+        vm.display = "Thank you " + vm.user.firstName + ". Your information has been received.";
+      }
+      else{
+        console.log("crap");
+        vm.submitted = false;
+        vm.display = "Please choose an option for the mailing list.";
+        event.stopPropagation();
+      }
 
 
       vm.user = {};

@@ -9,38 +9,59 @@
 
   <div ng-controller="MainCtrl as main">
 
+    <!-- First Name Input -->
     <form name="userForm" ng-submit="main.submit(); userForm.$setPristine()">
       <input name="firstName" type="text" ng-model="main.user.firstName" placeholder="First Name" ng-required="true"/>
-      <p ng-show="userForm.firstName.$error.required && userForm.firstName.$dirty">
-        Please enter your first name.
-      </p>
 
+      <!-- Last Name Input -->
       <input name="lastName" type="text" ng-model="main.user.lastName" placeholder="Last Name" required/>
-      <p ng-show="userForm.lastName.$error.required && userForm.lastName.$dirty">
-        Please enter your last name.
-      </p>
 
+      <!-- Email Input -->
       <input name= "email" type="email" ng-model="main.user.email" placeholder="Email Address" ng-required="true" ng-pattern="main.emailPattern"/>
-      <p ng-show="userForm.email.$error.required && userForm.email.$dirty">Please enter an email.</p>
-      <p ng-show="userForm.email.$error.pattern  && userForm.email.$dirty">Email not valid.</p>
 
+      <!-- Phone Number Input -->
       <input name="phoneNumber" type="number" ng-model="main.user.phoneNumber" placeholder="Phone Number" ng-required="true" ng-pattern="main.phonePattern" ng-minlength="10" ng-maxlength="10"/><br />
-      <p ng-show="((userForm.phoneNumber.$error.required || userForm.phoneNumber.$error.number)&& userForm.phoneNumber.$dirty)">Please enter a phone number.</p>
-      <p ng-show="((userForm.phoneNumber.$error.minlength || userForm.phoneNumber.$error.maxlength) && userForm.phoneNumber.$dirty)">Phone numbers should be 10 digits long.</p>
 
+      <!-- Mailing lIst Sign Up -->
       Would you like to sign up for the mailing list?
       <input type="radio" ng-model="main.user.mailingList" value="Yes">Yes
       <input type="radio" ng-model="main.user.mailingList" value="No"/>No
       <button type="submit">Submit</button>
 
+      <!--Validations-->
+      <!-- First Name Validation -->
+      <p ng-show="userForm.firstName.$error.required && userForm.firstName.$dirty">
+        Please enter your first name.
+      </p>
+
+      <!-- Last Name Validation -->
+      <p ng-show="userForm.lastName.$error.required && userForm.lastName.$dirty">
+        Please enter your last name.
+      </p>
+
+      <!-- Email Validation -->
+      <p ng-show="userForm.email.$error.required && userForm.email.$dirty">Please enter an email.</p>
+      <p ng-show="userForm.email.$error.pattern  && userForm.email.$dirty">Email not valid.</p>
+
+      <!-- Phone Number Validation -->
+      <p ng-show="((userForm.phoneNumber.$error.required || userForm.phoneNumber.$error.number)&& userForm.phoneNumber.$dirty)">Please enter a phone number.</p>
+      <p ng-show="((userForm.phoneNumber.$error.minlength || userForm.phoneNumber.$error.maxlength) && userForm.phoneNumber.$dirty)">Phone numbers should be 10 digits long.</p>
+
+      <!-- Mailing List Validation -->
+      <!-- add animation to make message go away -->
       <div ng-if="main.submitted == true">
-        {{main.display}}
+        <p>
+          {{main.display}}
+        </p>
       </div>
       <div ng-if="main.submitted == false">
-        {{main.display}}
+        <p>
+          {{main.display}}
+        </p>
       </div>
     </form>
 
+    <!-- Display All Users -->
     <div>
       Show list of Users <input type="checkbox" ng-model="main.checked"/>
       <div ng-if="main.checked == true">

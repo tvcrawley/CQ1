@@ -11,6 +11,7 @@
 
     vm.users = users;
     vm.user = {};
+    vm.mailingListUsers = [];
     // vm.user.firstName;
     // vm.user.lastName;
     // vm.user.email;
@@ -20,10 +21,23 @@
     vm.submit = function(){
       vm.users.push(angular.copy(vm.user));
       vm.submitted = true;
-      vm.display = "Thank you " + vm.user.firstName;
+
+if(vm.user.mailingList == "Yes"){
+  console.log("cool");
+  vm.mailingListUsers.push(angular.copy(vm.user));
+  console.log(vm.mailingListUsers);
+        vm.display = "Thank you " + vm.user.firstName + ". You have been added to the mailing list!";
+}
+else{
+  console.log("crap");
+        vm.display = "Thank you " + vm.user.firstName + ".";
+}
+
+
       vm.user = {};
     };
     console.log(vm.users);
+
   };
 
   function ResponseCtrl(){

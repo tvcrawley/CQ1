@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+  <meta charset="utf-8">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.3/angular.min.js"></script>
+  <script src="users.js"></script>
+  <script src="script.js"></script>
+  <title>Challenge Question 1</title>
+
+  <div ng-controller="MainCtrl as main">
+    {{main.here}}
+    <form ng-submit="main.submit()">
+      <input type="text" ng-model="main.user.firstName" placeholder="First Name" required/>
+      <input type="text" ng-model="main.user.lastName" placeholder="Last Name" required/>
+      <input type="email" ng-model="main.user.email" placeholder="Email Address"required/>
+      <input type="number" ng-model="main.user.phoneNumber" placeholder="Phone Number" required/><br />
+      Would you like to sign up for the mailing list?
+      <input type="radio" ng-model="main.user.mailingList" value="Yes">Yes
+      <input type="radio" ng-model="main.user.mailingList" value="No"/>No
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</head>
+<body>
+
+</body>
+</html>

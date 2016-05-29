@@ -7,16 +7,10 @@
   function MainCtrl(){
     var vm = this;
 
-    vm.here ="Here I am!";
-
     vm.users = users;
     vm.user = {};
     vm.mailingListUsers = [];
-    // vm.user.firstName;
-    // vm.user.lastName;
-    // vm.user.email;
-    // vm.user.phoneNumber;
-    // vm.user.mailingList;
+    vm.emailPattern = /^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/;
 
     vm.submit = function(event){
 

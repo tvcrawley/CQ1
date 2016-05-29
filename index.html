@@ -8,12 +8,26 @@
   <title>Challenge Question 1</title>
 
   <div ng-controller="MainCtrl as main">
-    {{main.here}}
-    <form ng-submit="main.submit()">
-      <input type="text" ng-model="main.user.firstName" placeholder="First Name" required/>
-      <input type="text" ng-model="main.user.lastName" placeholder="Last Name" required/>
-      <input type="email" ng-model="main.user.email" placeholder="Email Address"required/>
-      <input type="number" ng-model="main.user.phoneNumber" placeholder="Phone Number" required/><br />
+
+    <form name="userForm" ng-submit="main.submit(); userForm.$setPristine()">
+      <input name="firstName" type="text" ng-model="main.user.firstName" placeholder="First Name" ng-required="true"/>
+      <p ng-show="userForm.firstName.$error.required && userForm.firstName.$dirty">
+        Please enter your first name.
+      </p>
+
+      <input name="lastName" type="text" ng-model="main.user.lastName" placeholder="Last Name" required/>
+      <p ng-show="userForm.lastName.$error.required && userForm.lastName.$dirty">
+        Please enter your last name.
+      </p>
+
+      <input name= "email" type="email" ng-model="main.user.email" placeholder="Email Address" ng-required="true" ng-pattern="main.emailPattern"/>
+      <p ng-show="userForm.email.$error.required && userForm.email.$dirty">Please enter an email.</p>
+      <p ng-show="userForm.email.$error.pattern  && userForm.email.$dirty">Email not valid.</p>
+
+      <input name="phoneNumber" type="number" ng-model="main.user.phoneNumber" placeholder="Phone Number" ng-required="true" ng-pattern="main.phonePattern" ng-minlength="10" ng-maxlength="10"/><br />
+      <p ng-show="((userForm.phoneNumber.$error.required || userForm.phoneNumber.$error.number)&& userForm.phoneNumber.$dirty)">Please enter a phone number.</p>
+      <p ng-show="((userForm.phoneNumber.$error.minlength || userForm.phoneNumber.$error.maxlength) && userForm.phoneNumber.$dirty)">Phone numbers should be 10 digits long.</p>
+
       Would you like to sign up for the mailing list?
       <input type="radio" ng-model="main.user.mailingList" value="Yes">Yes
       <input type="radio" ng-model="main.user.mailingList" value="No"/>No

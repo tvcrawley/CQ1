@@ -19,7 +19,6 @@
     // vm.user.mailingList;
 
     vm.submit = function(event){
-      vm.users.push(angular.copy(vm.user));
 
       if(vm.user.mailingList == "Yes"){
         console.log("cool");
@@ -30,6 +29,7 @@
       }
       else if(vm.user.mailingList == "No"){
         vm.submitted = true;
+        vm.users.push(angular.copy(vm.user));
         vm.display = "Thank you " + vm.user.firstName + ". Your information has been received.";
       }
       else{
@@ -43,6 +43,7 @@
       vm.user = {};
     };
     console.log(vm.users);
+    vm.checked = false;
 
   };
 

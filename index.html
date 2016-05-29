@@ -26,7 +26,54 @@
         {{main.display}}
       </div>
     </form>
-</div>
+
+    <div>
+      Show list of Users <input type="checkbox" ng-model="main.checked"/>
+      <div ng-if="main.checked == true">
+        <div ng-repeat="user in main.users">
+          <table>
+            <thead>
+              <th>
+                First Name
+              </th>
+              <th>
+                Last Name
+              </th>
+              <th>
+                Email Address
+              </th>
+              <th>
+                Phone Number
+              </th>
+              <th>
+                Mailing List?
+              </th>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  {{user.firstName}}
+                </td>
+                <td>
+                  {{user.lastName}}
+                </td>
+                <td>
+                  {{user.email}}
+                </td>
+                <td>
+                  {{user.phoneNumber}}
+                </td>
+                <td ng-if="user.mailingList == true">
+                  Checkmark img
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </head>
 <body>
 

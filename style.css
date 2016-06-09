@@ -1,0 +1,31 @@
+html, body{
+  height: 100%;
+}
+
+body{
+background-color: #ccedf7;
+color: #a68e6e;
+font-weight: 400;
+}
+
+form, p{
+  font-size: 18px;
+}
+
+.container{
+  width: 60%;
+  padding: 10px 0;
+}
+
+.navbar-fixed-bottom{
+  padding: 40px 0;
+}
+
+.validate{
+  color: #ff0000;
+}
+
+.success{
+  color: #44c744;
+  padding: 10px 0;
+}

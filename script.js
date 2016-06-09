@@ -1,48 +1,52 @@
 (function(){
   angular
   .module("app", [])
-  .controller("MainCtrl", MainCtrl)
-  .controller("ResponseCtrl", ResponseCtrl);
+  .controller("MainCtrl", MainCtrl);
 
-  function MainCtrl(){
+  function MainCtrl($http){
     var vm = this;
-
-    vm.users = users;
     vm.user = {};
-    vm.mailingListUsers = [];
     vm.emailPattern = /^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/;
 
-    vm.submit = function(event){
+    // form submit function
+    vm.submit = function(){
 
-      if(vm.user.mailingList == "Yes"){
-        console.log("cool");
-        vm.submitted = true;
-        vm.mailingListUsers.push(angular.copy(vm.user));
-        console.log(vm.mailingListUsers);
+      // user's information
+      function userInfo(){
+
+        //sending info to php file
+        $http({
+          method: "POST",
+          url: "users.php",
+          data: {
+            firstName: vm.user.firstName,
+            lastName: vm.user.lastName,
+            email: vm.user.email,
+            phoneNumber: vm.user.phoneNumber,
+            mailingList: vm.user.mailingList
+          },
+          headers: {"Content-type": "application/x-www-form-urlencoded"}
+        });
+      };
+
+      // Mailing List: ACCEPTED
+      if(vm.user.mailingList === "Yes"){
+        vm.user.mailingList = true;
+        userInfo();
+
         vm.display = "Thank you " + vm.user.firstName + ". You have been added to the mailing list!";
       }
-      else if(vm.user.mailingList == "No"){
-        vm.submitted = true;
-        vm.users.push(angular.copy(vm.user));
+
+      // Mailing List: DECLINED
+      else if(vm.user.mailingList === "No"){
+        vm.user.mailingList = false;
+        userInfo();
+
         vm.display = "Thank you " + vm.user.firstName + ". Your information has been received.";
       }
-      else{
-        console.log("crap");
-        vm.submitted = false;
-        vm.display = "Please choose an option for the mailing list.";
-        event.stopPropagation();
-      }
-
-
+      
+      //reset form
       vm.user = {};
     };
-    console.log(vm.users);
-    vm.checked = false;
-
-  };
-
-  function ResponseCtrl(){
-
-  };
-
+  }
 })();

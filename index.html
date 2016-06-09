@@ -2,115 +2,102 @@
 <html ng-app="app">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="style.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.3/angular.min.js"></script>
-  <script src="users.js"></script>
   <script src="script.js"></script>
   <title>Challenge Question 1</title>
+</head>
+<body>
 
-  <div ng-controller="MainCtrl as main">
+  <div class="container">
+    <h2>Email Sign Up</h2>
+    <p class="lead">
+      Please fill in the below form
+    </p>
+  </div>
 
-    <!-- First Name Input -->
+
+  <div ng-controller="MainCtrl as main" class="container">
+
+    <!-- USER INPUTS -->
     <form name="userForm" ng-submit="main.submit(); userForm.$setPristine()">
-      <input name="firstName" type="text" ng-model="main.user.firstName" placeholder="First Name" ng-required="true"/>
 
-      <!-- Last Name Input -->
-      <input name="lastName" type="text" ng-model="main.user.lastName" placeholder="Last Name" required/>
+      <!-- First Name Input -->
+      <div class="form-group">
+        <label>First Name</label>
+        <input name="firstName" type="text" ng-model="main.user.firstName" placeholder="First Name" required class="form-control"/>
+      </div>
 
-      <!-- Email Input -->
-      <input name= "email" type="email" ng-model="main.user.email" placeholder="Email Address" ng-required="true" ng-pattern="main.emailPattern"/>
-
-      <!-- Phone Number Input -->
-      <input name="phoneNumber" type="number" ng-model="main.user.phoneNumber" placeholder="Phone Number" ng-required="true" ng-pattern="main.phonePattern" ng-minlength="10" ng-maxlength="10"/><br />
-
-      <!-- Mailing lIst Sign Up -->
-      Would you like to sign up for the mailing list?
-      <input type="radio" ng-model="main.user.mailingList" value="Yes">Yes
-      <input type="radio" ng-model="main.user.mailingList" value="No"/>No
-      <button type="submit">Submit</button>
-
-      <!--Validations-->
       <!-- First Name Validation -->
-      <p ng-show="userForm.firstName.$error.required && userForm.firstName.$dirty">
+      <p ng-show="userForm.firstName.$error.required && userForm.firstName.$dirty" class="validate">
         Please enter your first name.
       </p>
 
+      <!-- Last Name Input -->
+      <div class="form-group">
+        <label>Last Name</label>
+        <input name="lastName" type="text" ng-model="main.user.lastName" placeholder="Last Name" required class="form-control"/>
+      </div>
+
       <!-- Last Name Validation -->
-      <p ng-show="userForm.lastName.$error.required && userForm.lastName.$dirty">
+      <p ng-show="userForm.lastName.$error.required && userForm.lastName.$dirty" class="validate">
         Please enter your last name.
       </p>
 
+      <!-- Email Input -->
+      <div class="form-group">
+        <label>Email Address</label>
+        <input name= "email" type="email" ng-model="main.user.email" placeholder="Email Address" required ng-pattern="main.emailPattern" class="form-control"/>
+      </div>
+
       <!-- Email Validation -->
-      <p ng-show="userForm.email.$error.required && userForm.email.$dirty">Please enter an email.</p>
-      <p ng-show="userForm.email.$error.pattern  && userForm.email.$dirty">Email not valid.</p>
+      <p ng-show="userForm.email.$error.required && userForm.email.$dirty" class="validate">Please enter an email.</p>
+      <p ng-show="userForm.email.$error.pattern  && userForm.email.$dirty" class="validate">Email not valid.</p>
+
+      <!-- Phone Number Input -->
+      <div class="form-group">
+        <label>Phone Number (digits only)</label>
+        <input name="phoneNumber" type="number" ng-model="main.user.phoneNumber" placeholder="Phone Number" required ng-minlength="10" ng-maxlength="10"class="form-control"/>
+      </div>
 
       <!-- Phone Number Validation -->
-      <p ng-show="((userForm.phoneNumber.$error.required || userForm.phoneNumber.$error.number)&& userForm.phoneNumber.$dirty)">Please enter a phone number.</p>
-      <p ng-show="((userForm.phoneNumber.$error.minlength || userForm.phoneNumber.$error.maxlength) && userForm.phoneNumber.$dirty)">Phone numbers should be 10 digits long.</p>
+      <p ng-show="((userForm.phoneNumber.$error.required || userForm.phoneNumber.$error.number)&& userForm.phoneNumber.$dirty)" class="validate">Please enter a phone number.</p>
+      <p ng-show="((userForm.phoneNumber.$error.minlength || userForm.phoneNumber.$error.maxlength) && userForm.phoneNumber.$dirty)" class="validate">Phone numbers should be 10 digits long.</p>
 
-      <!-- Mailing List Validation -->
-      <!-- add animation to make message go away -->
-      <div ng-if="main.submitted == true">
-        <p>
-          {{main.display}}
-        </p>
+      <!-- Mailing List Sign Up -->
+      <p>Would you like to sign up for the mailing list?</p>
+
+      <div class="radio">
+        <label>
+          <input type="radio" ng-model="main.user.mailingList" value="Yes" ng-required = "!main.user.mailingList" />
+          Yes
+        </label>
       </div>
-      <div ng-if="main.submitted == false">
-        <p>
-          {{main.display}}
-        </p>
+
+      <div class="radio">
+        <label>
+          <input type="radio" ng-model="main.user.mailingList" value="No" ng-required = "!main.user.mailingList"/>
+          No
+        </label>
       </div>
+
+      <button type="submit" class="btn btn-primary">Submit</button>
+
+      <!-- User Response -->
+      <p ng-if="!(userForm.$dirty)" class="success text-center">
+        {{main.display}}
+      </p>
     </form>
 
-    <!-- Display All Users -->
-    <div>
-      Show list of Users <input type="checkbox" ng-model="main.checked"/>
-      <div ng-if="main.checked == true">
-        <div ng-repeat="user in main.users">
-          <table>
-            <thead>
-              <th>
-                First Name
-              </th>
-              <th>
-                Last Name
-              </th>
-              <th>
-                Email Address
-              </th>
-              <th>
-                Phone Number
-              </th>
-              <th>
-                Mailing List?
-              </th>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  {{user.firstName}}
-                </td>
-                <td>
-                  {{user.lastName}}
-                </td>
-                <td>
-                  {{user.email}}
-                </td>
-                <td>
-                  {{user.phoneNumber}}
-                </td>
-                <td ng-if="user.mailingList == true">
-                  Checkmark img
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
   </div>
-</head>
-<body>
+
+  <div class="container navbar-fixed-bottom text-center">
+    <p>
+      Web Developer Challenge 1 by <a href="http://tvlangley.github.io/">Tonia Langley</a>
+    </p>
+  </div>
 
 </body>
 </html>
